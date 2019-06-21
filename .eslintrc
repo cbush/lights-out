@@ -15,7 +15,11 @@
         "react/no-array-index-key": ["off"],
         "react/prefer-stateless-function": ["warn"],
         "no-useless-constructor": ["warn"],
-        "no-unused-vars": ["warn"]
+        "no-unused-vars": ["warn"],
+        "react/prop-types": ["off"],
+        "space-before-function-paren": ["error"],
+        "jsx-a11y/click-events-have-key-events": ["off"],
+        "jsx-a11y/no-static-element-interactions": ["off"]
     },
     "extends": ["airbnb"]
 }

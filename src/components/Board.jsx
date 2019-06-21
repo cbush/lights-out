@@ -1,11 +1,18 @@
 import React from 'react'
+import Cell from './Cell'
 import '../style/Board.css'
 
-class Cell extends React.Component {
+export default class Board extends React.Component {
   constructor(props) {
     super(props)
+    const board = []
+    for (let i = 0; i < 5 * 5; ++i) {
+      board.push({
+        color: 'white',
+      })
+    }
     this.state = {
-      color: 'white',
+      board,
     }
   }
 
@@ -13,37 +20,30 @@ class Cell extends React.Component {
     const {color} = this.state
     const newColor = color === 'white' ? 'black' : 'white'
     this.setState({color: newColor})
-  };
-
-  render() {
-    const {index} = this.props
-    return (
-      <div
-        className="box"
-        style={{background: this.state.color}}
-        onClick={this.changeColor}
-      >
-        {index}
-      </div>
-    )
   }
-}
 
-function createGrid() {
-  const children = []
-  for (let i = 0; i < 5 * 5; ++i) {
-    children.push(
-      <Cell index={i} />,
-    )
+  renderGrid = () => {
+    const {board} = this.state
+    return board.map((cell, index) => {
+      const {color} = cell
+      return (
+        <Cell
+          index={index}
+          color={color}
+          onClick={() => {
+            const newColor = color === 'white' ? 'black' : 'white'
+            board[index].color = newColor
+            this.setState({board})
+          }}
+        />
+      )
+    })
   }
-  return children
-}
 
-export default class Board extends React.Component {
   render() {
     return (
       <div className="Board">
-        {createGrid()}
+        {this.renderGrid()}
       </div>
     )
   }

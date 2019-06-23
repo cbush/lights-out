@@ -42,8 +42,14 @@ export default class Board extends React.Component {
 
   render() {
     return (
-      <div className="Board">
-        {this.renderGrid()}
+      <div
+        style={{
+          flex: 1,
+        }}
+      >
+        <div className="Board">
+          {this.renderGrid()}
+        </div>
       </div>
     )
   }

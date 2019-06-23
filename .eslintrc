@@ -17,7 +17,7 @@
         "no-useless-constructor": ["warn"],
         "no-unused-vars": ["warn"],
         "react/prop-types": ["off"],
-        "space-before-function-paren": ["error"],
+        "space-before-function-paren": ["off"],
         "jsx-a11y/click-events-have-key-events": ["off"],
         "jsx-a11y/no-static-element-interactions": ["off"]
     },

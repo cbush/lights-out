@@ -25,21 +25,10 @@ function clickBoard(board, index) {
   if (x < BOARD_SIZE - 1) board[XYToIndex(x + 1, y, BOARD_SIZE)].active ^= 1
 }
 
-function checkBoard() {
-  const board_array = []
-
-  for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i) {
-    board_array.push(random.int(0, 1))
-  }
-
-  return board_array
-}
-
 export default class Board extends React.Component {
   constructor(props) {
     super(props)
     const board = []
-    const board_arr = checkBoard() 
 
     for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i) {
         board.push({

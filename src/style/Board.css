@@ -11,4 +11,5 @@
 
 .Board button {
   height: 100%;
+  transition: background-color 100ms linear;
 }

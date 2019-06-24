@@ -44,7 +44,9 @@ export default () => (
               Save
           </Button>
         </Toolbar>
-        <Board />
+        <Board 
+          size={6}
+        />
       </Window>
     </ThemeProvider>
   </div>

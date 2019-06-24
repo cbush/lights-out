@@ -2,13 +2,26 @@ import React from 'react'
 import Cell from './Cell'
 import '../style/Board.css'
 
+const BOARD_SIZE = 5
+
+function indexToXY(index, width) {
+  return [
+    parseInt(index % width, 10),
+    parseInt(index / width, 10),
+  ]
+}
+
+function XYToIndex(x, y, width) {
+  return y * width + x
+}
+
 export default class Board extends React.Component {
   constructor(props) {
     super(props)
     const board = []
-    for (let i = 0; i < 5 * 5; ++i) {
+    for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i) {
       board.push({
-        color: 'white',
+        active: false,
       })
     }
     this.state = {
@@ -16,23 +29,21 @@ export default class Board extends React.Component {
     }
   }
 
-  changeColor = () => {
-    const {color} = this.state
-    const newColor = color === 'white' ? 'black' : 'white'
-    this.setState({color: newColor})
-  }
-
   renderGrid = () => {
     const {board} = this.state
     return board.map((cell, index) => {
-      const {color} = cell
+      const {active} = cell
       return (
         <Cell
           index={index}
-          color={color}
+          active={active}
           onClick={() => {
-            const newColor = color === 'white' ? 'black' : 'white'
-            board[index].color = newColor
+            board[index].active ^= 1
+            const [x, y] = indexToXY(index, BOARD_SIZE)
+            if (y > 0) board[XYToIndex(x, y - 1, BOARD_SIZE)].active ^= 1
+            if (x > 0) board[XYToIndex(x - 1, y, BOARD_SIZE)].active ^= 1
+            if (y < BOARD_SIZE - 1) board[XYToIndex(x, y + 1, BOARD_SIZE)].active ^= 1
+            if (x < BOARD_SIZE - 1) board[XYToIndex(x + 1, y, BOARD_SIZE)].active ^= 1
             this.setState({board})
           }}
         />

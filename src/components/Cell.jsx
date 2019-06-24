@@ -1,5 +1,4 @@
 import React from 'react'
-import '../style/Board.css'
 import {Button} from 'react95'
 
 export default class Cell extends React.Component {

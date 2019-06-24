@@ -3,6 +3,7 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components'
 import {
   Button, reset, themes, Toolbar, Window, WindowHeader,
 } from 'react95'
+import * as Realm from 'realm'
 import Board from './Board'
 
 const ResetStyles = createGlobalStyle`
@@ -44,7 +45,7 @@ export default () => (
               Save
           </Button>
         </Toolbar>
-        <Board 
+        <Board
           size={6}
         />
       </Window>

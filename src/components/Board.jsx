@@ -1,6 +1,5 @@
 import React from 'react'
 import Cell from './Cell'
-import '../style/Board.css'
 
 const BOARD_SIZE = 5
 

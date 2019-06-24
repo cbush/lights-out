@@ -31,3 +31,19 @@
     transform: rotate(360deg);
   }
 }
+
+.Board {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: repeat(5, 20%);
+  grid-template-rows: repeat(5, 20%);
+  grid-auto-flow: column;
+}
+
+.Board button {
+  height: 100%;
+  transition: background-color 100ms linear;
+}

@@ -1,10 +1,11 @@
 import React from 'react'
 import Cell from './Cell'
-import '../style/Board.css'
+
 import {dot} from 'mathjs'
 
 const math = require('..')
 const random = require('random')
+
 
 const BOARD_SIZE = 5
 const N1 = [ 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0 ]

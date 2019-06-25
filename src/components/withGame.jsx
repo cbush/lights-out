@@ -65,6 +65,9 @@ export default Component => (
         })
       }
       const cells = realm.objects('Cell').filtered(`gameId == '${gameId}'`)
+      cells.addListener((collection, changes) => {
+        this.setState({cells})
+      })
       this.setState({user, realm, game, cells})
     }
 

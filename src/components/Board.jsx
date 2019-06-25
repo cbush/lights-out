@@ -1,9 +1,7 @@
 import React from 'react'
 import Cell from './Cell'
-import {dot} from 'mathjs'
-import random from 'random'
 
-const BOARD_SIZE = 5
+export const BOARD_SIZE = 5
 
 function indexToXY(index, width) {
   return [
@@ -16,7 +14,7 @@ function XYToIndex(x, y, width) {
   return y * width + x
 }
 
-function clickBoard(board, index) {
+export function clickBoard(board, index) {
   board[index].active ^= 1
   const [x, y] = indexToXY(index, BOARD_SIZE)
   if (y > 0) board[XYToIndex(x, y - 1, BOARD_SIZE)].active ^= 1
@@ -26,38 +24,24 @@ function clickBoard(board, index) {
 }
 
 export default class Board extends React.Component {
-  constructor(props) {
-    super(props)
-    const board = []
-
-    for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i) {
-        board.push({
-          active: false,
-        })
-    }
-
-    for (let i = 0; i < 10; ++i) {
-      let ind = random.int(0,24) 
-      clickBoard(board, ind)
-    }
-
-    this.state = {
-      board,
-    } 
-
-  }
-
   renderGrid = () => {
-    const {board} = this.state
-    return board.map((cell, index) => {
+    const {cells, realm, user} = this.props
+    if (!cells) {
+      return []
+    }
+
+    return cells.map((cell, index) => {
       const {active} = cell
       return (
         <Cell
           index={index}
           active={active}
           onClick={() => {
-            clickBoard(board, index)
-            this.setState({board})
+            realm.write(() => {
+              clickBoard(cells, index)
+              cells[index].lastTouchedBy = user.identity
+            })
+            this.setState({cells})
           }}
         />
       )

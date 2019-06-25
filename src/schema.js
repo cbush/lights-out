@@ -3,17 +3,16 @@ export const Game = {
   primaryKey: 'gameId',
   properties: {
     gameId: 'string',
-    board: 'Cell[]',
+    cells: 'Cell[]',
   },
 }
 
 export const Cell = {
   name: 'Cell',
-  primaryKey: 'cellId',
   properties: {
-    cellId: 'string',
-    active: 'bool',
+    gameId: 'string',
+    active: 'int',
     whoIsHovering: 'string[]', // Array of player IDs who are currently hovering over the cell
-    lastTouchedBy: 'string', // Player ID who last touched the cell
+    lastTouchedBy: 'string?', // Player ID who last touched the cell
   },
 }

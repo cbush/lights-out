@@ -3,14 +3,19 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components'
 import {
   Button, reset, themes, Toolbar, Window, WindowHeader,
 } from 'react95'
-import * as Realm from 'realm'
 import Board from './Board'
+import withGame from './withGame'
 
 const ResetStyles = createGlobalStyle`
   ${reset}
 `
 
-export default () => (
+export default withGame(({
+  user,
+  realm,
+  game,
+  cells,
+}) => (
   <div className="App">
     <ResetStyles />
     <ThemeProvider theme={themes.default}>
@@ -46,9 +51,11 @@ export default () => (
           </Button>
         </Toolbar>
         <Board
-          size={6}
+          cells={cells}
+          realm={realm}
+          user={user}
         />
       </Window>
     </ThemeProvider>
   </div>
-)
+))

@@ -17,11 +17,13 @@ export default class Cell extends React.Component {
         style={{
           backgroundColor: hover ? '#fdd' : '#ccc',
         }}
-        active={active}
+        active={!!active}
         onClick={onClick}
         onMouseEnter={() => this.setState({hover: true})}
         onMouseLeave={() => this.setState({hover: false})}
-      />
+      >
+        &nbsp;
+      </Button>
     )
   }
 }

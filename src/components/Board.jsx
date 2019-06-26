@@ -34,7 +34,7 @@ export default class Board extends React.Component {
       const {active} = cell
       return (
         <Cell
-          index={index}
+          key={index}
           active={active}
           onClick={() => {
             realm.write(() => {

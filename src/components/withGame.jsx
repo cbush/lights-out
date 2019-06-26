@@ -37,17 +37,9 @@ export default Component => (
     }
 
     componentDidMount() {
-      // const creds = Realm.Sync.Credentials.anonymous()
-      const creds = Realm.Sync.Credentials.usernamePassword('admin', 'admin666')
+      const creds = Realm.Sync.Credentials.anonymous()
       Realm.Sync.User.login(SERVER_URL, creds)
         .then(this.onLogin)
-    }
-
-    componentWillUnmount() {
-      if (this.subscription === undefined) {
-        return
-      }
-      this.subscription.unsubscribe()
     }
 
     onLogin = async (user) => {
@@ -56,7 +48,7 @@ export default Component => (
         sync: {
           url: `${REALM_URL}/lightsout`,
           user,
-          partial: true,
+          fullSynchronization: true,
         },
       }
 
@@ -74,7 +66,6 @@ export default Component => (
         })
       }
       const cells = realm.objects('Cell').filtered(`gameId == '${gameId}'`)
-      this.subscription = cells.subscribe()
       cells.addListener((collection, changes) => {
         this.setState({cells})
       })

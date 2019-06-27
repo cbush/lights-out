@@ -1,5 +1,6 @@
 import React from 'react'
 import Cell from './Cell'
+import {addToSet, removeFromSet} from '../setOperations'
 
 export const BOARD_SIZE = 5
 
@@ -25,11 +26,25 @@ export function clickBoard(board, index) {
 
 export default class Board extends React.Component {
   renderGrid = () => {
-    const {cells, realm, user} = this.props
+    const {cells, realm, player, players} = this.props
     if (!cells) {
       return []
     }
 
+    // Map cell index to who is hovering over them for faster lookup below
+    const cellIndexToHoverers = {}
+    players.forEach((player) => {
+      const {hoverIndex} = player
+      if (hoverIndex === null) {
+        return
+      }
+      if (cellIndexToHoverers[hoverIndex] === undefined) {
+        cellIndexToHoverers[hoverIndex] = []
+      }
+      cellIndexToHoverers[hoverIndex].push(player)
+    })
+
+    // Render the cells
     return cells.map((cell, index) => {
       const {active} = cell
       return (
@@ -39,10 +54,17 @@ export default class Board extends React.Component {
           onClick={() => {
             realm.write(() => {
               clickBoard(cells, index)
-              cells[index].lastTouchedBy = user.identity
+              cells[index].lastTouchedBy = player
             })
             this.setState({cells})
           }}
+          onMouseEnter={() => {
+            realm.write(() => {
+              player.lastSeen = new Date()
+              player.hoverIndex = index
+            })
+          }}
+          hoverers={cellIndexToHoverers[index] || []}
         />
       )
     })

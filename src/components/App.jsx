@@ -15,6 +15,8 @@ export default withGame(({
   realm,
   game,
   cells,
+  player,
+  players,
 }) => (
   <div className="App">
     <ResetStyles />
@@ -54,6 +56,8 @@ export default withGame(({
           cells={cells}
           realm={realm}
           user={user}
+          player={player}
+          players={players}
         />
       </Window>
     </ThemeProvider>

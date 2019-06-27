@@ -10,17 +10,30 @@ export default class Cell extends React.Component {
   }
 
   render() {
-    const {active, onClick} = this.props
+    const {active, onClick, onMouseEnter, onMouseLeave, hoverers} = this.props
     const {hover} = this.state
+    let backgroundColor = '#'
+    backgroundColor += hover ? 'e' : 'c'
+    backgroundColor += hoverers.length > 0 ? 'ce' : 'cc'
     return (
       <Button
         style={{
-          backgroundColor: hover ? '#fdd' : '#ccc',
+          backgroundColor,
         }}
         active={!!active}
         onClick={onClick}
-        onMouseEnter={() => this.setState({hover: true})}
-        onMouseLeave={() => this.setState({hover: false})}
+        onMouseEnter={() => {
+          this.setState({hover: true})
+          if (onMouseEnter) {
+            onMouseEnter()
+          }
+        }}
+        onMouseLeave={() => {
+          this.setState({hover: false})
+          if (onMouseLeave) {
+            onMouseLeave()
+          }
+        }}
       >
         &nbsp;
       </Button>

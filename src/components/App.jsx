@@ -5,6 +5,7 @@ import {
 } from 'react95'
 import Board from './Board'
 import withGame from './withGame'
+import idToEmoji from '../idToEmoji'
 
 const ResetStyles = createGlobalStyle`
   ${reset}
@@ -59,6 +60,9 @@ export default withGame(({
           player={player}
           players={players}
         />
+        <p>
+          {players ? `Players: ${players.map(p => idToEmoji(p.id)).join(', ')}` : ''}
+        </p>
       </Window>
     </ThemeProvider>
   </div>

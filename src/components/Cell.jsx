@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from 'react95'
+import idToEmoji from '../idToEmoji'
 
 export default class Cell extends React.Component {
   constructor(props) {
@@ -12,13 +13,10 @@ export default class Cell extends React.Component {
   render() {
     const {active, onClick, onMouseEnter, onMouseLeave, hoverers} = this.props
     const {hover} = this.state
-    let backgroundColor = '#'
-    backgroundColor += hover ? 'e' : 'c'
-    backgroundColor += hoverers.length > 0 ? 'ce' : 'cc'
     return (
       <Button
         style={{
-          backgroundColor,
+          backgroundColor: hover ? '#eee' : '#ccc',
         }}
         active={!!active}
         onClick={onClick}
@@ -35,7 +33,7 @@ export default class Cell extends React.Component {
           }
         }}
       >
-        &nbsp;
+        {hoverers.map(hoverer => idToEmoji(hoverer.id)).join(' ')}
       </Button>
     )
   }
